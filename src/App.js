@@ -36,7 +36,7 @@ export default function App() {
 				<h1>React Google Login App</h1>
 				<div>
 					{loginData ? <div>
-						<div>kkkkkkkkk</div>
+						<div>Welcome {loginData.name}</div>
 					</div>
 						: <GoogleLogin
 							clientId="472472243625-v0ap7jnko2e6d21qpu1s6a05o6u4qlkj.apps.googleusercontent.com"
