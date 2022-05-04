@@ -1,52 +1,20 @@
 import "./styles.css";
-import React, { useEffect, useState } from "react";
-import GoogleLogin from "react-google-login";
-import axios from "axios";
+import React from "react";
+import { BrowserRouter as Router, Route, Routes, } from "react-router-dom";
+import Login from "./Screens/Login";
+import Landing from "./Screens/Landing";
+import TopNavbar from "./Components/TopNavbar";
 
 export default function App() {
-	const [loginData, setLoginData] = useState(null);
-	useEffect(() => {
-		setLoginData(
-			localStorage.getItem("loginData")
-				? JSON.parse(localStorage.getItem("loginData")) : null);
-	}, []);
-	const handleGoogleSuccessResponse = async (googleData) => {
-		const data = {
-			googleData: googleData
-		}
-		axios.post('http://localhost:3001/api/google-login', { data }).then(
-			function (res) {
-				if (res.data) {
-					setLoginData(res.data);
-					localStorage.setItem("loginData", JSON.stringify(res.data));
-				}
-			}
-		)
-	}
-	const handleGoogleFailureResponse = async (googleData) => {
-		console.log('-----------', JSON.stringify(googleData));
-	}
-	const handleLogout = () => {
-		localStorage.removeItem("loginData")
-		setLoginData(null);
-	}
 	return (
-		<div className="App" >
-			<header className="App-header">
-				<h1>React Google Login App</h1>
-				<div>
-					{loginData ? <div>
-						<div>Welcome {loginData.name}</div>
-					</div>
-						: <GoogleLogin
-							clientId="472472243625-v0ap7jnko2e6d21qpu1s6a05o6u4qlkj.apps.googleusercontent.com"
-							buttonText="Login"
-							onSuccess={handleGoogleSuccessResponse}
-							onFailure={handleGoogleFailureResponse}
-							cookiePolicy={'single_host_origin'}
-						/>}
-				</div>
-			</header>
-		</div >
+		<div className="App">
+			<Router>
+				<TopNavbar />
+				<Routes>
+					<Route path="/" element={<Login />} />
+					<Route path="/landing" element={<Landing />} />
+				</Routes>
+			</Router>
+		</div>
 	)
 }

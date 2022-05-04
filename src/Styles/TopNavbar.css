@@ -1,0 +1,29 @@
+.header {
+    background-image: linear-gradient(to right, #212121, #383838);
+    padding-right: 79;
+    padding-left: 118;
+
+    @media only screen and (max-width: 900px) {
+        padding-left: 0
+    }
+}
+
+.logo {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    color: #fff;
+    text-align: left;
+}
+
+.menuButton {
+    padding-right: 50%;
+}
+
+.toolbar {
+    display: "flex";
+    justify-content: space-between;
+}
+
+.drawerContainer {
+    padding: "20px 30px",
+}
