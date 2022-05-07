@@ -160,6 +160,7 @@ export default function TopNavbar(props) {
         <Avatar alt="Remy Sharp" src={vishnuLogo} style={{ width: 70, height: 70 }} />
     );
     const logoutAction = () => {
+        console.log("sravani")
         localStorage.removeItem('loginData');
     }
     const getMenuButtons = () => {
