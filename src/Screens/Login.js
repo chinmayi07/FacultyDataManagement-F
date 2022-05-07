@@ -10,10 +10,13 @@ function Login({ history }) {
     let navigate = useNavigate();
     const [loginData, setLoginData] = useState(null);
     useEffect(() => {
+        if (loginData) {
+            navigate('/landing');
+        }
         setLoginData(
             localStorage.getItem("loginData")
                 ? JSON.parse(localStorage.getItem("loginData")) : null);
-    }, []);
+    }, [loginData]);
     const handleGoogleSuccessResponse = async (googleData) => {
         const data = {
             googleData: googleData
@@ -23,7 +26,6 @@ function Login({ history }) {
                 if (res.data) {
                     setLoginData(res.data);
                     localStorage.setItem("loginData", JSON.stringify(res.data));
-                    navigate('/landing');
                 }
             }
         )
@@ -34,13 +36,13 @@ function Login({ history }) {
     return (
         <div>
             <nav className="glass login">
-                <section class="login">
-                    <form action="javascript:void(0);" id="form">
-                        <label for="username" value={username} onChange={event => setusername(event.target.value)}>
+                <section className="login">
+                    <form id="form">
+                        <label htmlFor="username" value={username} onChange={event => setusername(event.target.value)}>
                             Username
                             <input id="username" type="text"></input>
                         </label>
-                        <label for="password" value={password} onChange={event => setpassword(event.target.value)}>
+                        <label htmlFor="password" value={password} onChange={event => setpassword(event.target.value)}>
                             Password
                             <input id="password" type="password"></input>
                         </label>
@@ -48,11 +50,11 @@ function Login({ history }) {
                         <div style={{ paddingTop: '10px' }}>
                             <GoogleLogin
                                 render={renderProps => (
-                                    <button onClick={renderProps.onClick} disabled={renderProps.disabled}><div class="google-btn">
-                                        <div class="google-icon-wrapper">
-                                            <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+                                    <button onClick={renderProps.onClick} disabled={renderProps.disabled}><div className="google-btn">
+                                        <div className="google-icon-wrapper">
+                                            <img className="google-icon" alt="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
                                         </div>
-                                        <p class="btn-text"><b>Sign in with google</b></p>
+                                        <p className="btn-text"><b>Sign in with google</b></p>
                                     </div></button>
                                 )}
                                 buttonText="Login"

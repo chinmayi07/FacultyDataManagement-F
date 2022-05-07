@@ -8,7 +8,6 @@ import {
     MenuItem,
     Avatar,
     makeStyles,
-    CssBaseline,
     useScrollTrigger,
     Slide,
 } from "@material-ui/core";
