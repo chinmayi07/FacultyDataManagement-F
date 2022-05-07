@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
-import GoogleLogin from "react-google-login";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import GoogleLogin from 'react-google-login';
+import { useNavigate } from 'react-router-dom';
+import '../Styles/Login.css'
 
-function Login() {
+function Login({ history }) {
+    const [username, setusername] = useState("");
+    const [password, setpassword] = useState("");
     let navigate = useNavigate();
     const [loginData, setLoginData] = useState(null);
     useEffect(() => {
@@ -20,6 +23,7 @@ function Login() {
                 if (res.data) {
                     setLoginData(res.data);
                     localStorage.setItem("loginData", JSON.stringify(res.data));
+                    navigate('/landing');
                 }
             }
         )
@@ -28,21 +32,41 @@ function Login() {
         console.log('-----------', JSON.stringify(googleData));
     }
     return (
-        <div className="App">
-            <h1>React Google Login App</h1>
-            <div>
-                hhhhhhhhhhh
-                {loginData ? navigate('/landing')
-                    : <GoogleLogin
-                        clientId="472472243625-v0ap7jnko2e6d21qpu1s6a05o6u4qlkj.apps.googleusercontent.com"
-                        buttonText="Login"
-                        onSuccess={handleGoogleSuccessResponse}
-                        onFailure={handleGoogleFailureResponse}
-                        cookiePolicy={'single_host_origin'}
-                    />}
-            </div>
+        <div>
+            <nav className="glass login">
+                <section class="login">
+                    <form action="javascript:void(0);" id="form">
+                        <label for="username" value={username} onChange={event => setusername(event.target.value)}>
+                            Username
+                            <input id="username" type="text"></input>
+                        </label>
+                        <label for="password" value={password} onChange={event => setpassword(event.target.value)}>
+                            Password
+                            <input id="password" type="password"></input>
+                        </label>
+                        <button type="submit">Login</button>
+                        <div style={{ paddingTop: '10px' }}>
+                            <GoogleLogin
+                                render={renderProps => (
+                                    <button onClick={renderProps.onClick} disabled={renderProps.disabled}><div class="google-btn">
+                                        <div class="google-icon-wrapper">
+                                            <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+                                        </div>
+                                        <p class="btn-text"><b>Sign in with google</b></p>
+                                    </div></button>
+                                )}
+                                buttonText="Login"
+                                onSuccess={handleGoogleSuccessResponse}
+                                onFailure={handleGoogleFailureResponse}
+                                clientId="472472243625-v0ap7jnko2e6d21qpu1s6a05o6u4qlkj.apps.googleusercontent.com"
+                                cookiePolicy={'single_host_origin'}
+                            />
+                        </div>
+                    </form>
+                </section>
+            </nav>
         </div>
-    )
+    );
 }
 
 export default Login

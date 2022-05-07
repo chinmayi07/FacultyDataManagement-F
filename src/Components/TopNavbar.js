@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import React, { useState, useEffect } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import '../Styles/TopNavbar.css';
 import vishnuLogo from '../../src/Assets/logo.png';
 import PropTypes from 'prop-types';
@@ -75,6 +75,7 @@ const useStyles = makeStyles({
     }
 })
 export default function TopNavbar(props) {
+    let navigate = useNavigate();
     const classes = useStyles()
     const [state, setState] = useState({
         mobileView: false,
@@ -160,8 +161,8 @@ export default function TopNavbar(props) {
         <Avatar alt="Remy Sharp" src={vishnuLogo} style={{ width: 70, height: 70 }} />
     );
     const logoutAction = () => {
-        console.log("sravani")
         localStorage.removeItem('loginData');
+        navigate('/')
     }
     const getMenuButtons = () => {
         return headersData.map(({ label, href }) => {

@@ -9,7 +9,6 @@ export default function App() {
 	return (
 		<div className="App">
 			<Router>
-				<TopNavbar />
 				<Routes>
 					<Route path="/" element={<Login />} />
 					<Route path="/landing" element={<Landing />} />
